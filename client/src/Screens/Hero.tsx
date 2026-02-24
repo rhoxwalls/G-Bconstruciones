@@ -1,8 +1,12 @@
-import React from 'react'
+
+import hero from '../assets/hero.png';
 
 export const Hero = () => {
   return (
-   <section className="relative h-screen flex items-center justify-center bg-slate-900">
+   <section 
+   className="relative h-screen flex items-center justify-center bg-cover bg-center"
+   style={{backgroundImage:`url(${hero})`}}
+    >
       {/* Overlay para contraste */}
       <div className="absolute inset-0 bg-black/50 z-10" />
       
@@ -18,5 +22,6 @@ export const Hero = () => {
         </button>
       </div>
     </section>
+    
   )
 }

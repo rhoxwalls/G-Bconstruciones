@@ -1,7 +1,15 @@
+import { Contact } from "./Contact";
+import { Hero } from "./Hero";
+import { Proyects } from "./Proyects";
+import { Us } from "./Us";
+
 export default function Header() {
   return (
-    <header className="bg-slate-900 text-white p-6 shadow-lg">
-      <h1 className="text-2xl font-bold tracking-tight">Constructora MVP</h1>
-    </header>
+    <>
+    <Hero />
+    <Us />
+    <Proyects />
+    <Contact />
+    </>
   );
 }

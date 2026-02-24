@@ -2,6 +2,8 @@ import React from 'react'
 
 export const Proyects = () => {
   return (
-    <div>Proyects</div>
+    <section id='proyects'>
+
+    </section>
   )
 }
