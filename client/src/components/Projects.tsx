@@ -35,7 +35,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
   //   : null;
 
   return (
-    <section className="py-14 bg-slate-50 relative rounded-2xl">
+    <section className="py-14 bg-slate-50 relative rounded-2xl ">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-3xl font-bold mb-8 text-slate-800 uppercase tracking-wider">
           Nuestras Obras
