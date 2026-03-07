@@ -4,11 +4,14 @@ import tailwindcss from '@tailwindcss/vite'
 
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({command})=>{
+  return{
+  base: command === 'build'?'/client':'/',
   plugins: [react(), tailwindcss()],
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts', // Archivo para extensiones de expect
   },
+}
 })
