@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig(({command})=>{
   return{
-  base: command === 'build'?'/GarantiaYBienestar':'/',
+  base: command === 'build'?'/G-Bconstruciones':'/',
   plugins: [react(), tailwindcss()],
   test: {
     globals: true,
