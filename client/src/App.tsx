@@ -8,6 +8,7 @@ function App() {
       <Routes>
           <Route path="/" element={<Nav />}>
           <Route index element={<Header />}/>
+          <Route path="*" element={<Header />} />
         </Route>
       </Routes>
       </Router>

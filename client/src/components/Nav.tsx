@@ -9,9 +9,9 @@ export const Nav = () => {
             <img src={logo} alt="logo" className="h-50 w-30 relative top-19"/>
           </Link>
           <div className="space-x-8 text-sm font-medium text-slate-600">
-            <a href="#/inicio" className="hover:text-orange-600 transition">Inicio</a>
-            <a href="#/us" className="hover:text-orange-600 transition">Proyectos</a>
-            <a href="#/contact" className="hover:text-orange-600 transition">Contacto</a>
+            <a href="#inicio" className="hover:text-orange-600 transition">Inicio</a>
+            <a href="#us" className="hover:text-orange-600 transition">Proyectos</a>
+            <a href="#contact" className="hover:text-orange-600 transition">Contacto</a>
           </div>
         </div>
       </nav>

@@ -21,10 +21,10 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Empresa</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#/" className="hover:text-orange-500 transition">Inicio</a></li>
-            <li><a href="#/proyectos" className="hover:text-orange-500 transition">Proyectos</a></li>
-            <li><a href="#/servicios" className="hover:text-orange-500 transition">Servicios</a></li>
-            <li><a href="#/contacto" className="hover:text-orange-500 transition">Contacto</a></li>
+            <li><a href="#" className="hover:text-orange-500 transition">Inicio</a></li>
+            <li><a href="#proyectos" className="hover:text-orange-500 transition">Proyectos</a></li>
+            <li><a href="#servicios" className="hover:text-orange-500 transition">Servicios</a></li>
+            <li><a href="#contacto" className="hover:text-orange-500 transition">Contacto</a></li>
           </ul>
         </div>
 
