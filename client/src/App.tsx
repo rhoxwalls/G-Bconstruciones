@@ -6,8 +6,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Nav />}>
-          <Route index element={<Header />} />
+          <Route path="/" element={<Nav />}>
+          <Route index element={<Header />}/>
         </Route>
       </Routes>
       </Router>
