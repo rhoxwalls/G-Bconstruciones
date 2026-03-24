@@ -15,6 +15,20 @@ export const Contact = () => {
     e.preventDefault();
     console.log('Datos enviados:', formData);
     // Aquí podrías conectar con tu backend en Node.js o redirigir a WhatsApp
+    const phoneNumber = "5493874402610";
+
+    const text = `*Nueva Solicitud de Obra - GyB*
+--------------------------------
+*Nombre:* ${formData.name}
+*Email:* ${formData.email}
+*Tipo de Proyecto:* ${formData.projectType}
+*Presupuesto:* ${formData.budget || 'A convenir'}
+*Descripción:* ${formData.description}`;
+
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
+
+    window.open (whatsappUrl, '_blank');
+
     alert('¡Gracias! Nos pondremos en contacto pronto.');
   };
 

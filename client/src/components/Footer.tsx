@@ -22,9 +22,9 @@ export default function Footer() {
           <h3 className="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Empresa</h3>
           <ul className="space-y-2 text-sm">
             <li><a href="#" className="hover:text-orange-500 transition">Inicio</a></li>
-            <li><a href="#proyectos" className="hover:text-orange-500 transition">Proyectos</a></li>
+            <li><a href="#us" className="hover:text-orange-500 transition">Proyectos</a></li>
             <li><a href="#servicios" className="hover:text-orange-500 transition">Servicios</a></li>
-            <li><a href="#contacto" className="hover:text-orange-500 transition">Contacto</a></li>
+            <li><a href="#contact" className="hover:text-orange-500 transition">Contacto</a></li>
           </ul>
         </div>
 
@@ -32,9 +32,9 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Contacto</h3>
           <ul className="space-y-2 text-sm">
-            <li>📍 Calle Falsa 123, Ciudad</li>
-            <li>📞 +54 11 1234-5678</li>
-            <li>✉️ info@constructorapro.com</li>
+            <li>📍 Urbanización Via Aurelia Mza 29 Casa 4</li>
+            <li>📞 3875516786</li>
+            <li>✉️ gybcontrucciones.03@gmail.com</li>
           </ul>
         </div>
 
@@ -57,7 +57,7 @@ export default function Footer() {
 
       {/* Línea final */}
       <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-slate-800 text-center text-xs">
-        <p>&copy; {currentYear} ConstructoraPro. Todos los derechos reservados.</p>
+        <p>&copy; {currentYear} Garantia y Bienestar. Todos los derechos reservados.</p>
       </div>
     </footer>
   );
