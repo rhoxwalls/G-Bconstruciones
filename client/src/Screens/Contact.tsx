@@ -1,5 +1,5 @@
-import contact from '../assets/contact.png'
-
+import contact from '../assets/contact.png';
+import emailjs from '@emailjs/browser';
 import React, { useState } from 'react';
 
 export const Contact = () => {
@@ -11,11 +11,11 @@ export const Contact = () => {
     description: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Datos enviados:', formData);
     // Aquí podrías conectar con tu backend en Node.js o redirigir a WhatsApp
-    const phoneNumber = "5493874402610";
+    const phoneNumber = "5493873701272";
 
     const text = `*Nueva Solicitud de Obra - GyB*
 --------------------------------
@@ -25,12 +25,30 @@ export const Contact = () => {
 *Presupuesto:* ${formData.budget || 'A convenir'}
 *Descripción:* ${formData.description}`;
 
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
+  try {
+    // 1. ENVÍO A GMAIL (Invisible para el usuario)
+    // Esto llegará a tu bandeja de entrada directamente
+    await emailjs.send(
+      'gybconstrucciones', 
+      'template_phwdcbf', 
+      {
+        from_name: formData.name,        
+        from_email: formData.email,
+        message: text,
+        project_type: formData.projectType
+      }, 
+      'OJbzKXLhcc-phjWfU'
+    );
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
 
     window.open (whatsappUrl, '_blank');
 
     alert('¡Gracias! Nos pondremos en contacto pronto.');
-  };
+} catch (error) {
+  console.error("Error al enviar:", error);
+    alert("Hubo un error al procesar la solicitud.");
+}
+  };   
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -128,5 +146,4 @@ export const Contact = () => {
     </div>
     </section>
   );
-};
-
+}
