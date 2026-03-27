@@ -29,15 +29,15 @@ export const Contact = () => {
     // 1. ENVÍO A GMAIL (Invisible para el usuario)
     // Esto llegará a tu bandeja de entrada directamente
     await emailjs.send(
-      'gybconstrucciones', 
-      'template_phwdcbf', 
+      'service_xln91ti', 
+      'template_85a4s1l', 
       {
         from_name: formData.name,        
         from_email: formData.email,
         message: text,
         project_type: formData.projectType
       }, 
-      'OJbzKXLhcc-phjWfU'
+      'rIE8SEGmg72-gV7eU'
     );
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
 
