@@ -1,20 +1,84 @@
+import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import logo from '../assets/logo.png';
+
 export const Nav = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navLinks = [
+    { name: "Inicio", href: "#inicio" },
+    { name: "Nosotros", href: "#us" },
+    { name: "Proyectos", href: "#projects" },
+    { name: "Galeria", href: "#gallery" },
+    { name: "Contacto", href: "#contact" },
+  ];
+
   return (
-    <div className="min-h-screen font-sans">
-      <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-end justify-between">
-          <Link title="Inicio" to="/">
-            <img src={logo} alt="logo" className="h-50 w-30 relative top-19"/>
+    <div className="font-sans w-full">
+      <nav className="fixed top-0 w-full z-50 bg-white/10 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-full mx-auto px-4 h-16 flex items-center justify-between">
+          
+          {/* LOGO */}
+          <Link title="Inicio" to="/" className="z-50">
+            <img src={logo} alt="logo" className="h-52 mt-2 w-auto md:absolute md:h-80 md:w-80 md:-top-24 md:-left-14 transition-all"/>
           </Link>
-          <div className="space-x-8 text-sm font-medium text-slate-600">
-            <a href="#inicio" className="hover:text-orange-600 transition">Inicio</a>
-            <a href="#us" className="hover:text-orange-600 transition">Proyectos</a>
-            <a href="#contact" className="hover:text-orange-600 transition">Contacto</a>
+
+          {/* MENU DESKTOP */}
+          <div className="hidden md:flex space-x-8 text-xl lg:text-3xl font-medium text-slate-900">
+            {navLinks.map((link) => (
+              <a key={link.name} href={link.href} className="hover:text-orange-600 transition">
+                {link.name}
+              </a>
+            ))}
+          </div>
+
+          {/* BOTÓN HAMBURGUESA (Nativo SVG) */}
+          <div className="md:hidden z-900">
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              className="p-2 text-slate-900 hover:text-orange-600 transition"
+              aria-label="Menu"
+            >
+              {isOpen ? (
+                // Icono de Cerrar (X) nativo
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              ) : (
+                // Icono de Hamburguesa (Menu) nativo
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              )}
+            </button>
           </div>
         </div>
+
+       
       </nav>
+
+       {/* MENU MOBILE (Overlay) */}
+        <div className={`
+          fixed inset-0 bg-slate-900/95 backdrop-blur-xl transition-all duration-300 md:hidden z-900
+          ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}
+        `}>
+          <div className="flex flex-col items-center justify-center h-full space-y-8">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                onClick={() => setIsOpen(false)}
+                className="text-white text-3xl font-bold hover:text-orange-500 transition"
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+        </div>
+
       <main>
         <Outlet />
       </main>

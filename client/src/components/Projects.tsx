@@ -1,234 +1,120 @@
-// import { useState } from 'react';
-
-
-// interface GalleryItem {
-//   src: string;
-//   description: string;
-// }
-
-// interface Project {
-//   id: string;
-//   title: string;
-//   mainImage: string;
-//   gallery?: GalleryItem[]; // Cambiado a objeto con descripción
-// }
-
-// export default function ProjectsSection({ projects }: { projects: Project[] }) {
-//   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-//   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
-
-//   Funciones de navegación para el Nivel 2
-//   const nextImage = () => {
-//     if (selectedProject?.gallery && currentIndex !== null) {
-//       setCurrentIndex((currentIndex + 1) % selectedProject.gallery.length);
-//     }
-//   };
-
-//   const prevImage = () => {
-//     if (selectedProject?.gallery && currentIndex !== null) {
-//       setCurrentIndex((currentIndex - 1 + selectedProject.gallery.length) % selectedProject.gallery.length);
-//     }
-//   };
-
-//   const selectedImage = (selectedProject?.gallery && currentIndex !== null) 
-//     ? selectedProject.gallery[currentIndex] 
-//     : null;
-
-//   return (
-//     <section className="py-14 bg-slate-50 relative rounded-2xl ">
-//       <div className="max-w-7xl mx-auto px-4">
-//         <h2 className="text-3xl font-bold mb-8 text-slate-800 uppercase tracking-wider">
-//           Nuestras Obras
-//         </h2>
-
-//         {/* Carrusel */}
-//         <div className="flex overflow-x-auto gap-6 pb-8 snap-x no-scrollbar">
-//           {projects.map((project) => (
-//             <div
-//               key={project.id}
-//               className="min-w-75 md:min-w-100 snap-start cursor-pointer group"
-//               onClick={() => setSelectedProject(project)}
-//             >
-//               <div className="overflow-hidden rounded-xl shadow-lg relative">
-//                 <img
-//                   src={project.mainImage}
-//                   alt={project.title}
-//                   className="w-full h-72 object-cover group-hover:scale-110 transition duration-700"
-//                 />
-//                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
-//               </div>
-//               <h3 className="mt-4 font-bold text-xl text-slate-700">{project.title}</h3>
-//             </div>
-//           ))}
-//         </div>
-
-//         {/* NIVEL 1: Modal de Galería de la Obra */}
-//         {selectedProject && (
-//           <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
-//             <div className="bg-white w-full max-w-5xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-//               <div className="p-6 border-b flex justify-between items-center bg-slate-900 text-white">
-//                 <h3 className="text-xl font-bold uppercase">Proyecto: {selectedProject.title}</h3>
-//                 <button 
-//                   onClick={() => setSelectedProject(null)}
-//                   className="p-2 hover:bg-white/20 rounded-full transition"
-//                 >
-//                   Cerrar ✕
-//                 </button>
-//               </div>
-              
-//               <div className="flex-1 p-6 overflow-y-auto  md:grid-cols-2 gap-4 space-y-8 scroll-smooth">
-//                 {selectedProject.gallery?.map((item, index) => (
-//                   <div 
-//                     key={index} 
-//                     className="relative aspect-square cursor-zoom-in overflow-hidden rounded-lg group"
-//                     onClick={() => setSelectedImage(item)}
-//                   >
-//                     <img
-//                       src={item.src}
-//                       alt={`Obra ${index}`}
-//                       className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-//                     />
-//                     <div className="absolute inset-0 bg-orange-600/0 group-hover:bg-orange-600/20 transition-all flex items-center justify-center">
-//                        <span className="text-white opacity-0 group-hover:opacity-100 font-bold">Ver detalle</span>
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           </div>
-//         )}
-
-//         {/* NIVEL 2: Modal de Tarjeta de Imagen Individual */}
-//         {selectedImage && (
-//           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 animate-in zoom-in-95 duration-200">
-//             <div className="bg-white rounded-xl overflow-hidden max-w-lg w-full shadow-2xl">
-//               <img 
-//                 src={selectedImage.src} 
-//                 className="w-full h-80 object-cover" 
-//                 alt="Detalle" 
-//               />
-//               <div className="p-6">
-//                 <h4 className="text-orange-600 font-bold uppercase text-sm mb-2">Detalle de construcción</h4>
-//                 <p className="text-slate-700 text-lg leading-relaxed">
-//                   {selectedImage.description || "Sin descripción disponible para esta imagen."}
-//                 </p>
-//                 <button 
-//                   onClick={() => setSelectedImage(null)}
-//                   className="mt-6 w-full bg-slate-900 text-white py-3 rounded-lg font-bold hover:bg-orange-600 transition"
-//                 >
-//                   Volver a la galería
-//                 </button>
-//               </div>
-//             </div>
-//           </div>
-//         )}
-
-//       </div>
-//     </section>
-//   );
-// }
-
-
 import { useState } from 'react';
 
+// --- Interfaces mejoradas ---
 interface GalleryItem {
   src: string;
   description: string;
+  tag?: string; // Ej: "Estructura", "Terminaciones"
 }
 
 interface Project {
   id: string;
   title: string;
+  location: string; // Añadimos ubicación
+  category: string; // Ej: "Residencial", "Industrial"
   mainImage: string;
   gallery?: GalleryItem[];
 }
 
 export default function ProjectsSection({ projects }: { projects: Project[] }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  
-  // USAMOS EL ÍNDICE para saber en qué foto estamos
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
-  // Funciones de navegación
   const nextImage = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita cerrar el modal por error
+    e.stopPropagation();
     if (selectedProject?.gallery) {
-      setCurrentIndex((prev) => 
-        prev !== null ? (prev + 1) % selectedProject.gallery!.length : 0
-      );
+      setCurrentIndex((prev) => (prev !== null ? (prev + 1) % selectedProject.gallery!.length : 0));
     }
   };
 
   const prevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (selectedProject?.gallery) {
-      setCurrentIndex((prev) => 
-        prev !== null ? (prev - 1 + selectedProject.gallery!.length) % selectedProject.gallery!.length : 0
-      );
+      setCurrentIndex((prev) => (prev !== null ? (prev - 1 + selectedProject.gallery!.length) % selectedProject.gallery!.length : 0));
     }
   };
 
-  // Obtenemos la imagen actual basada en el índice
   const currentImage = (selectedProject?.gallery && currentIndex !== null) 
     ? selectedProject.gallery[currentIndex] 
     : null;
 
   return (
-    <section className="py-14 bg-slate-50 relative rounded-2xl">
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 text-slate-800 uppercase tracking-wider">
-          Nuestras Obras
-        </h2>
+    <section  className="py-20 bg-white relative">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Cabecera de Sección */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div>
+            <span className="text-orange-600 font-bold tracking-widest uppercase text-sm">Portfolio</span>
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-2">Nuestras Obras</h2>
+          </div>
+          <p className="text-slate-500 max-w-md italic border-l-4 border-orange-600 pl-4">
+            Calidad constructiva y compromiso arquitectónico en cada metro cuadrado.
+          </p>
+        </div>
 
-        {/* Carrusel Principal */}
-        <div className="flex overflow-x-auto gap-6 pb-8 snap-x no-scrollbar">
+        {/* Carrusel de Proyectos con Aspect Ratio Pro */}
+        <div className="flex overflow-x-auto gap-8 pb-10 snap-x no-scrollbar">
           {projects.map((project) => (
             <div
               key={project.id}
-              className="min-w-75 md:min-w-100 snap-start cursor-pointer group"
+              className="min-w-[320px] md:min-w-[450px] snap-start cursor-pointer group"
               onClick={() => setSelectedProject(project)}
             >
-              <div className="overflow-hidden rounded-xl shadow-lg relative">
+              <div className="relative overflow-hidden rounded-2xl aspect-[16/10] shadow-2xl">
                 <img
                   src={project.mainImage}
                   alt={project.title}
-                  className="w-full h-72 object-cover group-hover:scale-110 transition duration-700"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                 />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
+                {/* Overlay Gradiente */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="absolute bottom-0 left-0 p-8 w-full">
+                  <span className="text-orange-500 font-bold text-xs uppercase tracking-widest">{project.category}</span>
+                  <h3 className="text-white text-2xl font-bold mt-1">{project.title}</h3>
+                  <p className="text-slate-300 text-sm flex items-center gap-2 mt-2">
+                    <span className="w-4 h-[1px] bg-orange-500"></span> {project.location}
+                  </p>
+                </div>
               </div>
-              <h3 className="mt-4 font-bold text-xl text-slate-700">{project.title}</h3>
             </div>
           ))}
         </div>
 
-        {/* NIVEL 1: Modal de Galería */}
+        {/* NIVEL 1: Galería (Masonry-like Grid) */}
         {selectedProject && (
-          <div className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
-            <div className="bg-white w-full max-w-5xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-              <div className="p-6 border-b flex justify-between items-center bg-slate-900 text-white">
-                <h3 className="text-xl font-bold uppercase">Proyecto: {selectedProject.title}</h3>
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-slate-950/95 backdrop-blur-md animate-in fade-in duration-500">
+            <div className="bg-white w-full max-w-6xl max-h-[95vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+              
+              <div className="p-6 md:p-8 border-b flex justify-between items-center bg-white text-slate-900">
+                <div>
+                  <h3 className="text-2xl font-black uppercase tracking-tight">{selectedProject.title}</h3>
+                  <p className="text-orange-600 font-medium text-sm">Registro visual de obra</p>
+                </div>
                 <button 
                   onClick={() => setSelectedProject(null)}
-                  className="p-2 hover:bg-white/20 rounded-full transition"
-                >
-                  Cerrar ✕
-                </button>
+                  className="w-12 h-12 flex items-center justify-center bg-slate-100 hover:bg-orange-600 hover:text-white rounded-full transition-all text-2xl"
+                >✕</button>
               </div>
               
-              <div className="flex-1 p-6 overflow-y-auto gap-6 space-y-0 scroll-smooth">
+              <div className="flex-1 p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50">
                 {selectedProject.gallery?.map((item, index) => (
                   <div 
                     key={index} 
-                    className="relative aspect-video cursor-zoom-in overflow-hidden rounded-lg group border border-slate-200"
+                    className={`relative cursor-zoom-in overflow-hidden rounded-xl shadow-sm group ${
+                      index % 3 === 0 ? 'md:col-span-2 md:row-span-2' : 'aspect-square'
+                    }`}
                     onClick={() => setCurrentIndex(index)}
                   >
                     <img
                       src={item.src}
                       alt={`Obra ${index}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center">
-                       <span className="text-white opacity-0 group-hover:opacity-100 font-bold bg-orange-600 px-4 py-2 rounded-full shadow-lg">Ver detalle</span>
+                    <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/40 transition-all flex items-end p-6">
+                       <span className="text-white opacity-0 group-hover:opacity-100 font-bold text-sm uppercase tracking-widest translate-y-4 group-hover:translate-y-0 transition-all">
+                        Expandir detalle
+                       </span>
                     </div>
                   </div>
                 ))}
@@ -237,62 +123,41 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
           </div>
         )}
 
-        {/* NIVEL 2: Modal de Tarjeta con Navegación */}
+        {/* NIVEL 2: Visor de Tarjeta (Arquitectura Premium) */}
         {currentImage && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 animate-in zoom-in-95 duration-200">
+          <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-950/98 animate-in zoom-in-95 duration-300">
             
-            {/* Botón Anterior */}
-            <button 
-              onClick={prevImage}
-              className="absolute left-4 md:left-10 z-[60] text-white hover:text-orange-500 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-10 h-10 md:w-16 md:h-16">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-              </svg>
+            <button onClick={prevImage} className="absolute left-4 md:left-10 z-[120] text-white/50 hover:text-orange-500 transition-colors">
+              <svg className="w-12 h-12 md:w-20 md:h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M15 19l-7-7 7-7"/></svg>
             </button>
 
-            <div className="bg-white rounded-xl overflow-hidden max-w-2xl w-full shadow-2xl relative">
-              <div className="relative group">
-                <img 
-                  src={currentImage.src} 
-                  className="w-full h-64 md:h-96 object-contain bg-slate-100" 
-                  alt="Detalle" 
-                />
-                {/* Contador de imágenes */}
-                <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-xs font-mono">
-                  {(currentIndex || 0) + 1} / {selectedProject?.gallery?.length}
-                </div>
+            <div className="bg-white rounded-3xl overflow-hidden max-w-4xl w-full shadow-2xl relative flex flex-col md:flex-row">
+              <button onClick={() => setCurrentIndex(null)} className="absolute top-4 right-4 z-[130] bg-white/10 hover:bg-orange-600 text-white md:text-slate-900 md:bg-slate-100 w-10 h-10 rounded-full flex items-center justify-center transition">✕</button>
+              
+              <div className="md:w-2/3 bg-slate-100">
+                <img src={currentImage.src} className="w-full h-[300px] md:h-[550px] object-contain" alt="Detalle" />
               </div>
 
-              <div className="p-6">
-                <h4 className="text-orange-600 font-bold uppercase text-sm mb-2">Especificaciones de Obra</h4>
-                <p className="text-slate-700 text-lg leading-relaxed min-h-[60px]">
-                  {currentImage.description || "Sin descripción disponible."}
+              <div className="md:w-1/3 p-8 flex flex-col justify-center">
+                <span className="text-orange-600 font-bold uppercase text-[10px] tracking-[0.2em] mb-4">Documentación Técnica</span>
+                <h4 className="text-slate-900 font-black text-2xl mb-4 leading-tight">{selectedProject?.title}</h4>
+                <div className="w-12 h-1 bg-orange-600 mb-6"></div>
+                <p className="text-slate-600 text-lg leading-relaxed italic">
+                  "{currentImage.description}"
                 </p>
-                <div className="mt-6 flex gap-3">
-                    <button 
-                    onClick={() => setCurrentIndex(null)}
-                    className="flex-1 bg-slate-900 text-white py-3 rounded-lg font-bold hover:bg-slate-800 transition"
-                    >
-                    Volver a la galería
-                    </button>
+                
+                <div className="mt-auto pt-8 border-t border-slate-100 flex justify-between items-center text-slate-400 text-xs font-mono">
+                  <span>GYB CONSTRUCCIONES</span>
+                  <span>{(currentIndex || 0) + 1} / {selectedProject?.gallery?.length}</span>
                 </div>
               </div>
             </div>
 
-            {/* Botón Siguiente */}
-            <button 
-              onClick={nextImage}
-              className="absolute right-4 md:right-10 z-[60] text-white hover:text-orange-500 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-10 h-10 md:w-16 md:h-16">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
+            <button onClick={nextImage} className="absolute right-4 md:right-10 z-[120] text-white/50 hover:text-orange-500 transition-colors">
+              <svg className="w-12 h-12 md:w-20 md:h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9 5l7 7-7 7"/></svg>
             </button>
-
           </div>
         )}
-
       </div>
     </section>
   );

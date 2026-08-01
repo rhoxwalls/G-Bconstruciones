@@ -1,6 +1,7 @@
 import contact from '../assets/contact.png';
 import emailjs from '@emailjs/browser';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -144,6 +145,13 @@ export const Contact = () => {
         </button>
       </form>
     </div>
+
+    <Link 
+        to="/cotidashboard" 
+        className="inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
+      >
+        Ir a la Calculadora de Materiales
+      </Link>
     </section>
   );
 }

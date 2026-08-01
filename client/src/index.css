@@ -3,3 +3,25 @@
 html {
   scroll-behavior: smooth;
 }
+
+@theme {
+  /* Definimos la animación personalizada en el nuevo sistema de Tailwind 4 */
+  @keyframes escritura {
+    0% { width: 0; }
+    15% { width: 100%; }
+    85% { width: 100%; }
+    90% { width: 0; }
+    100% { width: 0; }
+  }
+
+  /* @keyframes parpadeo-cursor {
+    from, to { border-color: transparent; }
+    50% { border-color: #fbbf24; }
+  } */
+}
+
+/* Clases de utilidad personalizadas */
+.animate-typing {
+  animation: escritura 20s steps(30) infinite;
+}
+
