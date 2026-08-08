@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import logo from '../assets/web.jpg';
+import logo from '../assets/webv.mp4';
 
 export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
