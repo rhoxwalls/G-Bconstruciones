@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { BudgetItem } from './DashboardCotizacion'; // Importamos la interfaz
+import {type BudgetItem } from './DashboardCotizacion'; // Importamos la interfaz
 
 interface BudgetCalculatorProps {
   items: BudgetItem[];
@@ -36,7 +36,7 @@ export default function BudgetCalculator({ items, onAddItem, onRemoveItem }: Bud
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md border border-slate-200">
-      <h2 className="text-xl font-bold text-slate-800 mb-6">2. Presupuesto Final</h2>
+      <h2 className="text-xl font-bold text-slate-800 mb-6">3. Presupuesto Final</h2>
       
       {/* Formulario Manual */}
       <form onSubmit={handleManualSubmit} className="grid grid-cols-3 gap-2 mb-6">

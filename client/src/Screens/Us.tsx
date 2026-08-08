@@ -58,7 +58,6 @@ export const Us = () => {
     });
   }, [imageModules]);
 
-  console.log("Imágenes cargadas:", allImages);
 
   // 3. Obtenemos una lista de obras únicas para el Carrusel (una foto por carpeta)
   const projectsMenu = useMemo(() => {
@@ -77,7 +76,6 @@ export const Us = () => {
       };
     });
   }, [allImages]);
-  console.log("Proyectos procesados:", projectsMenu);
 
   // 4. Filtramos las imágenes de la obra seleccionada para el Modal
   const currentProjectSteps = useMemo(() => {
@@ -87,7 +85,6 @@ export const Us = () => {
       .sort((a, b) => a.order - b.order);
   }, [allImages, selectedProject]);
 
-  console.table(projectsMenu);
   return (
     <section id="us" className="min-h-screen">
       <h3 className="text-5xl text-orange-600 font-extrabold border-l-30 border-blue-900 p-4 mt-4">
@@ -97,7 +94,7 @@ export const Us = () => {
         <img
           src={grupo}
           alt="personal"
-          className="drop-shadow-black drop-shadow-2xl "
+          className="drop-shadow-black drop-shadow-2xl blur-xs"
         />
         <p className="mx-auto mb-4 p-4 text-justify [text-justify:inter-word] [hyphens:auto] text-pretty leading-relaxed">
           Detrás de cada gran estructura, hay un gran equipo. Creemos que la
@@ -272,7 +269,7 @@ export const Us = () => {
                 </span>
                 <h4 className="text-white font-bold text-xl mt-1">Frente</h4>
                 <p className="text-slate-300 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Frente con rebestimiento en pared y piso de mosaicos.
+                  lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda asperiores soluta, delectus blanditiis porro quas minus corporis deserunt ab hic! Sed itaque ea rerum adipisci, recusandae velit minima placeat tempore.
                 </p>
               </div>
             </div>
@@ -290,7 +287,7 @@ export const Us = () => {
                 </span>
                 <h4 className="text-white font-bold text-xl mt-1">Hall</h4>
                 <p className="text-slate-300 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Cocina Comedor, teminacion de lujo y precision
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat asperiores consectetur repudiandae facere necessitatibus, voluptate inventore beatae reiciendis, cum sint, officiis culpa suscipit aliquam sit perspiciatis nihil quas nostrum ea!
                 </p>
               </div>
             </div>

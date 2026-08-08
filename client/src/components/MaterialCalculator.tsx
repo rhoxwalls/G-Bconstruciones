@@ -1,124 +1,175 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import manodeobra from '../data/manodeobra.json';
+import { MATERIALES_POR_TRABAJO } from '../data/materialesPorTrabajo';
 
-// Definimos la prop que recibe desde el Padre
+export interface MaterialParaEnviar {
+  nombre: string;
+  cantidad: number;
+  unidad: string;
+  tipo: 'manodeobra' | 'material';
+  unitPrice?: number;
+}
+
 interface MaterialCalculatorProps {
-  onEnviarPresupuesto: (materiales: { nombre: string; cantidad: number }[]) => void;
+  onEnviarPresupuesto: (materiales: MaterialParaEnviar[]) => void;
 }
 
-interface MaterialRates {
-  ladrillos?: number;
-  cemento: number;
-  arena: number;
-  piedra?: number;
+interface ItemTrabajo {
+  descripcion: string;
+  unidad: string | null;
+  precio: number;
 }
 
-const TIPOS_DE_OBRA: Record<string, { label: string; rates: MaterialRates }> = {
-  muro_hueco: { label: "Muro de Ladrillo Hueco", rates: { ladrillos: 15, cemento: 10, arena: 0.025 } },
-  contrapiso_10cm: { label: "Contrapiso estándar", rates: { cemento: 25, arena: 0.05, piedra: 0.05 } }
-};
+const trabajos = (manodeobra as { items: ItemTrabajo[] }).items;
+
+const formatPrecio = (amount: number) =>
+  new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(amount);
 
 export default function MaterialCalculator({ onEnviarPresupuesto }: MaterialCalculatorProps) {
-  const [width, setWidth] = useState<number | ''>('');
-  const [length, setLength] = useState<number | ''>('');
-  const [workType, setWorkType] = useState<string>('muro_hueco');
+  const [selectedDescripcion, setSelectedDescripcion] = useState('');
+  const [quantity, setQuantity] = useState<number | ''>('');
 
-  const results = useMemo(() => {
-    if (!width || !length) return null;
-    const area = Number(width) * Number(length);
-    const rates = TIPOS_DE_OBRA[workType].rates;
+  const trabajo = trabajos.find((t) => t.descripcion === selectedDescripcion) || null;
 
+  const resultados = useMemo(() => {
+    if (!trabajo || !quantity) return null;
+    const cant = Number(quantity);
+    if (cant <= 0) return null;
+    const materialesDef = MATERIALES_POR_TRABAJO[trabajo.descripcion] || [];
     return {
-      area: area.toFixed(2),
-      ladrillos: rates.ladrillos ? Math.ceil(area * rates.ladrillos) : 0,
-      cemento: Math.ceil(area * rates.cemento),
-      arena: Number((area * rates.arena).toFixed(2)),
-      piedra: rates.piedra ? Number((area * rates.piedra).toFixed(2)) : 0,
+      manoDeObra: {
+        nombre: `Mano de obra: ${trabajo.descripcion}`,
+        cantidad: cant,
+        unitPrice: trabajo.precio,
+      },
+      materiales: materialesDef.map((m) => ({
+        nombre: m.nombre,
+        unidad: m.unidad,
+        cantidad: Number((m.cantidadPorUnidad * cant).toFixed(2)),
+      })),
+      totalManoDeObra: trabajo.precio * cant,
     };
-  }, [width, length, workType]);
+  }, [trabajo, quantity]);
 
-  // Función para empaquetar los datos y mandarlos al Padre
   const handleEnviar = () => {
-    if (!results) return;
-    const arrayMateriales = [];
-    
-    if (results.ladrillos > 0) arrayMateriales.push({ nombre: 'Ladrillos (unid.)', cantidad: results.ladrillos });
-    if (results.cemento > 0) arrayMateriales.push({ nombre: 'Cemento (kg)', cantidad: results.cemento });
-    if (results.arena > 0) arrayMateriales.push({ nombre: 'Arena (m³)', cantidad: results.arena });
-    if (results.piedra > 0) arrayMateriales.push({ nombre: 'Piedra/Grava (m³)', cantidad: results.piedra });
-
-    onEnviarPresupuesto(arrayMateriales);
+    if (!resultados) return;
+    const items: MaterialParaEnviar[] = [
+      {
+        nombre: resultados.manoDeObra.nombre,
+        cantidad: resultados.manoDeObra.cantidad,
+        unidad: trabajo?.unidad || 'un',
+        tipo: 'manodeobra',
+        unitPrice: trabajo?.precio,
+      },
+      ...resultados.materiales.map(
+        (m): MaterialParaEnviar => ({
+          nombre: m.nombre,
+          cantidad: m.cantidad,
+          unidad: m.unidad,
+          tipo: 'material',
+          unitPrice: 0,
+        }),
+      ),
+    ];
+    onEnviarPresupuesto(items);
   };
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md border border-slate-200">
-      <h2 className="text-xl font-bold text-slate-800 mb-6">1. Calculador de Obra Gruesa</h2>
-      
-      {/* ... [El formulario de inputs queda exactamente igual que antes] ... */}
-      <div className="space-y-4 mb-6">
-         {/* Aquí van los inputs de Ancho, Largo y Select (omito para brevedad, usa los que ya tenías) */}
-         <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            Tipo de Trabajo
-          </label>
-          <select
-            value={workType}
-            onChange={(e) => setWorkType(e.target.value)}
-            className="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none bg-white"
-          >
-            {Object.entries(TIPOS_DE_OBRA).map(([key, data]) => (
-              <option key={key} value={key}>
-                {data.label}
-              </option>
-            ))}
-          </select>
-        </div>
+      <h2 className="text-xl font-bold text-slate-800 mb-6">1. Seleccioná tu Proyecto</h2>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Ancho (metros)
-            </label>
-            <input
-              type="number"
-              min="0"
-              step="0.1"
-              value={width}
-              onChange={(e) => setWidth(Number(e.target.value) || '')}
-              className="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Ej: 4.5"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Largo / Alto (metros)
-            </label>
-            <input
-              type="number"
-              min="0"
-              step="0.1"
-              value={length}
-              onChange={(e) => setLength(Number(e.target.value) || '')}
-              className="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Ej: 3.0"
-            />
-          </div>
-        </div>
-      </div>
-      </div>
+      {/* Selección de trabajo */}
+      <label className="block text-sm font-medium text-slate-700 mb-1">
+        Tipo de trabajo
+      </label>
+      <select
+        value={selectedDescripcion}
+        onChange={(e) => setSelectedDescripcion(e.target.value)}
+        className="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none bg-white mb-4"
+      >
+        <option value="">Seleccioná un trabajo...</option>
+        {trabajos.map((t) => (
+          <option key={t.descripcion} value={t.descripcion}>
+            {t.descripcion} ({t.unidad || 'un'} · {formatPrecio(t.precio)})
+          </option>
+        ))}
+      </select>
 
-      {results && (
-        <div className="p-5 bg-slate-50 border border-slate-200 rounded-lg">
-          <h3 className="font-semibold text-slate-800 mb-3">Materiales Estimados</h3>
-          {/* ... [La lista de materiales queda igual] ... */}
-          
-          <button 
-            onClick={handleEnviar}
-            className="w-full mt-4 bg-emerald-500 text-white font-semibold py-2 rounded-lg hover:bg-emerald-600 transition-colors shadow-sm"
-          >
-            Enviar al Presupuesto ➡️
-          </button>
-        </div>
+      {trabajo && (
+        <>
+          {/* Cantidad */}
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Cantidad
+              </label>
+              <input
+                type="number"
+                min="0"
+                step="0.1"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value) || '')}
+                className="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none"
+                placeholder="Ej: 25"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Unidad
+              </label>
+              <div className="w-full border border-slate-200 bg-slate-50 rounded-lg p-2.5 text-sm text-slate-700">
+                {trabajo.unidad || 'un'}
+              </div>
+            </div>
+          </div>
+
+          {resultados && (
+            <div className="p-5 bg-slate-50 border border-slate-200 rounded-lg space-y-4">
+              <h3 className="font-semibold text-slate-800">Materiales Requeridos</h3>
+
+              {resultados.materiales.length === 0 ? (
+                <p className="text-slate-400 italic text-sm">
+                  Este trabajo no tiene materiales cargados todavía.
+                </p>
+              ) : (
+                <ul className="space-y-2">
+                  {resultados.materiales.map((m) => (
+                    <li
+                      key={m.nombre}
+                      className="flex justify-between items-center text-sm border-b border-slate-200 pb-2"
+                    >
+                      <span className="text-slate-700">{m.nombre}</span>
+                      <span className="font-semibold text-slate-800">
+                        {m.cantidad} {m.unidad}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <div className="flex justify-between items-center pt-2">
+                <span className="text-slate-600 font-medium">
+                  Mano de obra ({resultados.manoDeObra.cantidad} {trabajo.unidad || 'un'} x{' '}
+                  {formatPrecio(trabajo.precio)})
+                </span>
+                <span className="text-lg font-black text-blue-600">
+                  {formatPrecio(resultados.totalManoDeObra)}
+                </span>
+              </div>
+              <p className="text-xs text-slate-400">
+                Los materiales se agregan sin precio; asigná el costo de cada uno en la Hoja
+                de Materiales.
+              </p>
+
+              <button
+                onClick={handleEnviar}
+                className="w-full bg-emerald-500 text-white font-semibold py-2 rounded-lg hover:bg-emerald-600 transition-colors shadow-sm"
+              >
+                Agregar a la Hoja de Materiales ➡️
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

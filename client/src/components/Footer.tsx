@@ -9,7 +9,7 @@ export default function Footer() {
         {/* Columna 1: Branding */}
         <div className="space-y-4">
           <h2 className="text-white text-2xl font-bold">
-            Constructora<span className="text-orange-500"> G y B</span>
+            Constructora<span className="text-orange-500"> WebDesingSalta</span>
           </h2>
           <p className="text-sm leading-relaxed">
             Más de 20 años transformando planos en realidades sólidas y seguras. 
@@ -32,9 +32,9 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Contacto</h3>
           <ul className="space-y-2 text-sm">
-            <li>📍 Urbanización Via Aurelia Mza 29 Casa 4</li>
-            <li>📞 3875516786</li>
-            <li>✉️ gybcontrucciones.03@gmail.com</li>
+            <li>📍 Urbanización ****** Mza 29 Casa 4</li>
+            <li>📞 *******</li>
+            <li>✉️ WebDesingSalta@gmail.com</li>
           </ul>
         </div>
 

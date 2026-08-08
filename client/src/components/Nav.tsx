@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import logo from '../assets/logo.png';
+import logo from '../assets/web.jpg';
 
 export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +19,13 @@ export const Nav = () => {
         <div className="max-w-full mx-auto px-4 h-16 flex items-center justify-between">
           
           {/* LOGO */}
-          <Link title="Inicio" to="/" className="z-50">
-            <img src={logo} alt="logo" className="h-52 mt-2 w-auto md:absolute md:h-80 md:w-80 md:-top-24 md:-left-14 transition-all"/>
-          </Link>
-
+          <div className="contenedor-luz relative mt-24 inline-flex items-center space-x-2 cursor-default   hover:border-orange-600 transition-all">
+            <video autoPlay loop muted playsInline className=" md:h-52 md:w-52 transition-all">
+                <source src={logo} type="video/mp4"/>
+                 navegador no soporta videos.
+          </video>
+          </div>
+          
           {/* MENU DESKTOP */}
           <div className="hidden md:flex space-x-8 text-xl lg:text-3xl font-medium text-slate-900">
             {navLinks.map((link) => (

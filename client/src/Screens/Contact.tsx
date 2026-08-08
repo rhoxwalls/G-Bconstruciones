@@ -14,8 +14,6 @@ export const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Datos enviados:', formData);
-    // Aquí podrías conectar con tu backend en Node.js o redirigir a WhatsApp
     const phoneNumber = "5493873701272";
 
     const text = `*Nueva Solicitud de Obra - GyB*
@@ -56,12 +54,15 @@ export const Contact = () => {
   };
 
   return (
-    <section 
-    id='contact'
-    className='relative h-screen flex items-center justify-center bg-cover bg-center'
-   style={{backgroundImage:`url(${contact})`}}>
-    <div className="max-w-2xl  sm:-mr-[-750px] mx-auto p-8 bg-white shadow-xl rounded-lg border-t-4 border-yellow-500">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 uppercase tracking-tight">
+    <section
+      id='contact'
+      className='relative flex min-h-screen items-center justify-center bg-cover bg-center py-16'
+      style={{ backgroundImage: `url(${contact})` }}
+    >
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="relative z-10 w-full max-w-2xl mx-auto flex flex-col items-center gap-6 px-4 sm:px-6">
+        <div className="w-full bg-white shadow-xl rounded-lg border-t-4 border-yellow-500 p-5 sm:p-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 uppercase tracking-tight">
         Cotiza tu Proyecto
       </h2>
       
@@ -144,14 +145,15 @@ export const Contact = () => {
           Enviar Solicitud de Obra
         </button>
       </form>
-    </div>
+        </div>
 
-    <Link 
-        to="/cotidashboard" 
-        className="inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
-      >
-        Ir a la Calculadora de Materiales
-      </Link>
+        <Link
+          to="/cotidashboard"
+          className="inline-block w-full sm:w-auto text-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
+        >
+          Ir a la Calculadora de Materiales
+        </Link>
+      </div>
     </section>
   );
 }

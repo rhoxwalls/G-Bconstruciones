@@ -1,0 +1,282 @@
+{
+  "titulo": "Listado de Precios Estimativos de la Construcción en La Rioja",
+  "fecha": "ABRIL 2026",
+  "moneda": "ARS",
+  "items": [
+    {
+      "descripcion": "Cavado y llenado de cimiento de 0 30 x 0 80",
+      "unidad": "ml",
+      "precio": 35042
+    },
+    {
+      "descripcion": "Capa aisladora terminada c/alisado",
+      "unidad": "ml",
+      "precio": 14437
+    },
+    {
+      "descripcion": "Encadenado inferior, armado y llenado",
+      "unidad": "ml",
+      "precio": 23127
+    },
+    {
+      "descripcion": "Encadenado superior, armado y llenado",
+      "unidad": "ml",
+      "precio": 16476
+    },
+    {
+      "descripcion": "Colocación de zócalo",
+      "unidad": "ml",
+      "precio": 9624
+    },
+    {
+      "descripcion": "Dinteles H° A°",
+      "unidad": "ml",
+      "precio": 21865
+    },
+    {
+      "descripcion": "Dinteles de arco H. A",
+      "unidad": "ml",
+      "precio": 28826
+    },
+    {
+      "descripcion": "Vigas de calculo",
+      "unidad": "ml",
+      "precio": 103505
+    },
+    {
+      "descripcion": "Cordón cuneta c/base sellada",
+      "unidad": "ml",
+      "precio": 15838
+    },
+    {
+      "descripcion": "Mampostería de ladrillo común de 0,30 m",
+      "unidad": "m2",
+      "precio": 21847
+    },
+    {
+      "descripcion": "Mampostería de ladrillo de 0,20 m",
+      "unidad": "m2",
+      "precio": 21380
+    },
+    {
+      "descripcion": "Mampostería de bloque",
+      "unidad": "m2",
+      "precio": 16353
+    },
+    {
+      "descripcion": "Mampostería de ladrillo cerámico",
+      "unidad": "m2",
+      "precio": 16353
+    },
+    {
+      "descripcion": "Mampostería de ladrillón a la vista tomado de junta",
+      "unidad": "m2",
+      "precio": 25136
+    },
+    {
+      "descripcion": "Mampostería de ladrillo de 0,15 a la vista tomado de junta",
+      "unidad": "m2",
+      "precio": 22304
+    },
+    {
+      "descripcion": "Revoque Grueso",
+      "unidad": "m2",
+      "precio": 11306
+    },
+    {
+      "descripcion": "Revoque grueso y fino en pared",
+      "unidad": "m2",
+      "precio": 17884
+    },
+    {
+      "descripcion": "Revoque grueso y fino en cielorraso",
+      "unidad": "m2",
+      "precio": 21174
+    },
+    {
+      "descripcion": "Revoque fino",
+      "unidad": "m2",
+      "precio": 9559
+    },
+    {
+      "descripcion": "Revoque texturado y salpicre",
+      "unidad": "m2",
+      "precio": 11864
+    },
+    {
+      "descripcion": "Contrapiso de 7 cm. de espesor",
+      "unidad": "m2",
+      "precio": 14296
+    },
+    {
+      "descripcion": "Contrapiso alisado con pintura",
+      "unidad": "m2",
+      "precio": 16216
+    },
+    {
+      "descripcion": "Colocación de cerámicos en pisos y paredes",
+      "unidad": "m2",
+      "precio": 19118
+    },
+    {
+      "descripcion": "Colocación de pisos de mosaicos",
+      "unidad": "m2",
+      "precio": 17987
+    },
+    {
+      "descripcion": "Colocación de losetas y rectángulos",
+      "unidad": "m2",
+      "precio": 15789
+    },
+    {
+      "descripcion": "Colocación de azulejos",
+      "unidad": "m2",
+      "precio": 17893
+    },
+    {
+      "descripcion": "Carpeta",
+      "unidad": "m2",
+      "precio": 12288
+    },
+    {
+      "descripcion": "Colocación de tejas francesas y colonial",
+      "unidad": "m2",
+      "precio": 42141
+    },
+    {
+      "descripcion": "Colocación de tejas francesas y colonial sobre losa",
+      "unidad": "m2",
+      "precio": 27238
+    },
+    {
+      "descripcion": "Losa cerámica, armado y llenado",
+      "unidad": "m2",
+      "precio": 57560
+    },
+    {
+      "descripcion": "Losa de hormigón, armado y llenado de 0,10 m",
+      "unidad": "m2",
+      "precio": 89422
+    },
+    {
+      "descripcion": "Cubierta de techo con tierra y alisado con mezcla",
+      "unidad": "m2",
+      "precio": 19529
+    },
+    {
+      "descripcion": "Cubierta de techo con mezcla y ladrillo terminada",
+      "unidad": "m2",
+      "precio": 17893
+    },
+    {
+      "descripcion": "Colocación de marcos de puertas y ventanas 1,50 x 2",
+      "unidad": "c/u",
+      "precio": 71762
+    },
+    {
+      "descripcion": "Columnas para infraestructuras de encuentro",
+      "unidad": "c/u",
+      "precio": 53167
+    },
+    {
+      "descripcion": "Columna de base",
+      "unidad": "c/u",
+      "precio": 79472
+    },
+    {
+      "descripcion": "Colocación de piso de mármol con carpeta",
+      "unidad": "c/u",
+      "precio": 47001
+    },
+    {
+      "descripcion": "Relleno y compactación",
+      "unidad": "m2",
+      "precio": 16772
+    },
+    {
+      "descripcion": "Demolición",
+      "unidad": "m2",
+      "precio": 19015
+    },
+    {
+      "descripcion": "Pintura de látex",
+      "unidad": "m2",
+      "precio": 9344
+    },
+    {
+      "descripcion": "Pintura a la cal",
+      "unidad": "m2",
+      "precio": 5420
+    },
+    {
+      "descripcion": "Pintura esmalte sintético",
+      "unidad": "m2",
+      "precio": 12381
+    },
+    {
+      "descripcion": "Pintura al barniz",
+      "unidad": "m2",
+      "precio": 13876
+    },
+    {
+      "descripcion": "Colocación de Durlock terminado",
+      "unidad": "m2",
+      "precio": 39573
+    },
+    {
+      "descripcion": "Colocación Poste Olímpico c/Alambrado terminado",
+      "unidad": "ml",
+      "precio": 20454
+    },
+    {
+      "descripcion": "Colocación membrana rollo",
+      "unidad": "c/u",
+      "precio": 42656
+    },
+    {
+      "descripcion": "Colocación membrana líquida",
+      "unidad": "m2",
+      "precio": 9157
+    },
+    {
+      "descripcion": "Muro piedra vista terminado",
+      "unidad": "m2",
+      "precio": 32797
+    },
+    {
+      "descripcion": "Muro piedra encofrado",
+      "unidad": "m2",
+      "precio": 16959
+    },
+    {
+      "descripcion": "Colocacion Porcelanato",
+      "unidad": "m2",
+      "precio": 40193
+    },
+    {
+      "descripcion": "Pozo Negro- Cavado-Calzado-Terminado Estándar 3x2",
+      "unidad": "m3",
+      "precio": 191397
+    },
+    {
+      "descripcion": "Colocación machimbre techo terminado",
+      "unidad": "m2",
+      "precio": 77089
+    },
+    {
+      "descripcion": "Revestimiento de Piedra",
+      "unidad": "m2",
+      "precio": 18538
+    },
+    {
+      "descripcion": "Enduido",
+      "unidad": "m2",
+      "precio": 8026
+    },
+    {
+      "descripcion": "Hora de losa changarines",
+      "unidad": null,
+      "precio": 12895
+    }
+  ]
+}
